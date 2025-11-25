@@ -2,34 +2,13 @@ CREATE DATABASE IF NOT EXISTS Superstore;
 
 USE Superstore;
 
-CREATE TABLE Orders_Original (
-	row_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id VARCHAR(100),
-    order_date DATE,
-    ship_date DATE,
-    ship_mode VARCHAR(100),
-    customer_id VARCHAR(100),
-    customer_name VARCHAR(100),
-    segment VARCHAR(100),
-    country VARCHAR(100),
-    city VARCHAR(100),
-    state VARCHAR(100),
-    postalcode VARCHAR(100),
-    region VARCHAR(100),
-    product_id VARCHAR(100),
-    category VARCHAR(100),
-    sub_category VARCHAR(100),
-    product_name VARCHAR(100),
-    sales DECIMAL(10,2),
-    quantity INT,
-    discount DECIMAL(5,2),
-    profit DECIMAL(10,2)
-);
+# Dataset has imported directly as text datatype as errors lead to import failure
 
-ALTER TABLE orders_original
-MODIFY COLUMN order_date VARCHAR(100);
+SELECT COUNT(*) FROM sales_original;		#checking the count of reports imported from the dataset
 
-ALTER TABLE orders_original
-MODIFY COLUMN ship_date VARCHAR(100);
+DESCRIBE sales_original;
 
-select count(*) from orders_original;
+CREATE TABLE sales AS SELECT * FROM sales_original;		#creating copy of dataset for safe operations
+
+SELECT order_date FROM sales;	# date format is in dd/mm/yyyy. this should be converted to yyyy/mm/dd. same with ship_date
+
